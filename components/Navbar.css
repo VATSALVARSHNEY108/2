@@ -1,0 +1,13 @@
+.nav-blur {
+  position: sticky;
+  top: 0;
+  z-index: 1002;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-width: 1px;
+  border-color: var(--border-subtle);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  background: var(--nav-bg);
+}

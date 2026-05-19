@@ -1,0 +1,32 @@
+@layer components {
+  .btn-primary {
+    @apply flex items-center justify-center gap-2 px-10 py-5 rounded-2xl font-bold transition-all duration-500;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-secondary {
+    @apply flex items-center justify-center gap-2 px-10 py-5 rounded-2xl font-bold transition-all duration-500 border;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-elevated);
+    transform: translateY(-4px);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.95);
+  }
+}

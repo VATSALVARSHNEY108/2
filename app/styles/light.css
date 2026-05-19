@@ -1,0 +1,22 @@
+:root.light, html.light, body.light, .light, [data-theme='light'] {
+  /* PURE LIGHT THEME (High Contrast) */
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-muted: #27272a;
+
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5;
+  --bg-elevated: #e4e4e7;
+
+  --border-color: rgba(0, 0, 0, 0.15);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+
+  --accent-vibrant: #000000;
+  --accent-soft: rgba(0, 0, 0, 0.05);
+  --accent-glow: rgba(0, 0, 0, 0.08);
+  --accent-secondary: #0ea5e9;
+
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --shadow-main: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  --shadow-premium: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+}

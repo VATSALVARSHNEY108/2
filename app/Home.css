@@ -1,0 +1,78 @@
+/* Home Page Premium Styling Overhaul */
+
+.home-container {
+  --section-gap: clamp(5rem, 15vw, 12rem);
+}
+
+/* Hero Enhancements */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@layer components {
+  /* Discipline Card Overhaul */
+  .discipline-card {
+    @apply relative p-10 rounded-[2.5rem] border transition-all duration-700 overflow-hidden flex flex-col h-full;
+    background: var(--bg-secondary);
+    border-color: var(--border-subtle);
+    backdrop-filter: blur(10px);
+  }
+
+  .discipline-card::after {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-700 pointer-events-none;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+  }
+
+  .discipline-card:hover::after {
+    @apply opacity-100;
+  }
+
+  .discipline-card:hover {
+    @apply -translate-y-3;
+    border-color: var(--accent-vibrant);
+    box-shadow: var(--shadow-premium);
+  }
+
+  /* Stat Cards */
+  .stat-card {
+    @apply relative p-12 md:p-16 rounded-[3rem] border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/50 backdrop-blur-md overflow-hidden text-center transition-all duration-500;
+  }
+
+  .stat-card:hover {
+    @apply border-[var(--border-color)] -translate-y-1;
+    box-shadow: var(--shadow-main);
+  }
+
+  /* Typography Fixes */
+  .home-title {
+    @apply font-black tracking-[-0.07em] leading-[0.8] select-none;
+    font-family: var(--font-outfit), sans-serif;
+    font-size: clamp(3rem, 12vw, 9rem);
+    background: linear-gradient(to bottom, var(--text-primary) 30%, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-label {
+    @apply text-[10px] font-black uppercase tracking-[0.6em] text-indigo-500 mb-6 block;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.float-animation {
+  animation: float 8s ease-in-out infinite;
+}

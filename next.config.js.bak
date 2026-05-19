@@ -1,0 +1,26 @@
+// next.config.js
+/**
+ * Next.js configuration to handle raw markdown files as plain text assets.
+ * Added an empty `turbopack` config to silence Turbopack‑webpack conflict
+ * when using a custom webpack rule.
+ */
+module.exports = {
+  webpack(config, { isServer }) {
+    // Treat .md files as raw source strings.
+    config.module.rules.push({
+      test: /\.md$/,
+      type: 'asset/source',
+    });
+    return config;
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        '*.md': {
+          loaders: ['raw-loader'],
+          as: '*.js',
+        },
+      },
+    },
+  },
+};

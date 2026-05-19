@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+httpx
+python-dotenv
+pydantic
+openai
+langchain
+langchain-community
+google-generativeai
+anthropic
+numpy
+pandas
+scikit-learn

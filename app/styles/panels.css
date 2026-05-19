@@ -1,0 +1,15 @@
+@layer components {
+  .glass-panel {
+    @apply rounded-[3rem] backdrop-blur-md border;
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--border-color);
+  }
+
+  .light .glass-panel {
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-24;
+  }
+}

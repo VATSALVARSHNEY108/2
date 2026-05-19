@@ -1,0 +1,11 @@
+[project]
+name = "o1-platform"
+version = "0.1.0"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "openai",
+    "langchain",
+    "numpy",
+    "pandas",
+]

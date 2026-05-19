@@ -1,0 +1,83 @@
+﻿content/dsa/arrays/array-deletion.tsx(43,81): error TS1005: ',' expected.
+content/dsa/arrays/array-deletion.tsx(43,92): error TS1109: Expression expected.
+content/dsa/arrays/array-deletion.tsx(44,3): error TS1109: Expression expected.
+content/dsa/arrays/array-deletion.tsx(143,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/array-deletion.tsx(254,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/array-deletion.tsx(256,35): error TS1005: '}' expected.
+content/dsa/arrays/array-deletion.tsx(256,215): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/array-deletion.tsx(257,34): error TS1005: '}' expected.
+content/dsa/arrays/array-deletion.tsx(257,198): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/array-deletion.tsx(258,35): error TS1005: '}' expected.
+content/dsa/arrays/array-deletion.tsx(258,126): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/array-deletion.tsx(258,128): error TS1005: '</' expected.
+content/dsa/arrays/array-traversal.tsx(253,1): error TS1128: Declaration or statement expected.
+content/dsa/arrays/find-duplicate.tsx(298,3): error TS1005: ')' expected.
+content/dsa/arrays/find-duplicate.tsx(299,1): error TS1109: Expression expected.
+content/dsa/arrays/remove-duplicates.tsx(75,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/remove-duplicates.tsx(82,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/remove-duplicates.tsx(101,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/remove-duplicates.tsx(106,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/remove-duplicates.tsx(108,10): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/remove-duplicates.tsx(199,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/remove-duplicates.tsx(199,2): error TS1005: '</' expected.
+content/dsa/arrays/reverse-array.tsx(146,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/arrays/reverse-array.tsx(260,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/reverse-array.tsx(262,30): error TS1005: '}' expected.
+content/dsa/arrays/reverse-array.tsx(262,210): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/reverse-array.tsx(263,29): error TS1005: '}' expected.
+content/dsa/arrays/reverse-array.tsx(263,193): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/reverse-array.tsx(264,30): error TS1005: '}' expected.
+content/dsa/arrays/reverse-array.tsx(264,121): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/arrays/reverse-array.tsx(264,123): error TS1005: '</' expected.
+content/dsa/cpp-fundamentals/introduction-to-cpp.tsx(127,23): error TS1005: ')' expected.
+content/dsa/cpp-fundamentals/introduction-to-cpp.tsx(128,3): error TS1109: Expression expected.
+content/dsa/dynamic-programming/climbing-stairs.tsx(123,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/dynamic-programming/climbing-stairs.tsx(315,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/dynamic-programming/climbing-stairs.tsx(316,1): error TS1005: '</' expected.
+content/dsa/dynamic-programming/fibonacci-dp.tsx(191,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/dynamic-programming/fibonacci-dp.tsx(549,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/dynamic-programming/fibonacci-dp.tsx(550,1): error TS1005: '</' expected.
+content/dsa/dynamic-programming/introduction-to-dp.tsx(198,5): error TS1005: ')' expected.
+content/dsa/dynamic-programming/introduction-to-dp.tsx(198,11): error TS1109: Expression expected.
+content/dsa/dynamic-programming/introduction-to-dp.tsx(198,17): error TS1109: Expression expected.
+content/dsa/dynamic-programming/introduction-to-dp.tsx(199,3): error TS1109: Expression expected.
+content/dsa/problem-solving-basics/input-optimization.tsx(6,67): error TS1002: Unterminated string literal.
+content/dsa/problem-solving-basics/input-optimization.tsx(7,7): error TS1005: ',' expected.
+content/dsa/problem-solving-basics/input-optimization.tsx(8,5): error TS1109: Expression expected.
+content/dsa/problem-solving-basics/input-optimization.tsx(9,3): error TS1109: Expression expected.
+content/dsa/problem-solving-basics/input-optimization.tsx(10,14): error TS1127: Invalid character.
+content/dsa/problem-solving-basics/input-optimization.tsx(10,15): error TS1127: Invalid character.
+content/dsa/problem-solving-basics/input-optimization.tsx(10,17): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(10,29): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(10,37): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(11,16): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(11,25): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(11,63): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(20,89): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(46,27): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(46,60): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(46,101): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(46,113): error TS1443: Module declaration names may only use ' or " quoted strings.
+content/dsa/problem-solving-basics/input-optimization.tsx(52,1): error TS1160: Unterminated template literal.
+content/dsa/searching-sorting/binary-search-searching.tsx(213,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/binary-search-searching.tsx(220,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/binary-search-searching.tsx(352,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/searching-sorting/binary-search-searching.tsx(353,1): error TS1005: '</' expected.
+content/dsa/searching-sorting/linear-search-searching.tsx(194,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/linear-search-searching.tsx(201,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/linear-search-searching.tsx(211,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/linear-search-searching.tsx(230,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/linear-search-searching.tsx(235,10): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/linear-search-searching.tsx(323,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/searching-sorting/linear-search-searching.tsx(324,1): error TS1005: '</' expected.
+content/dsa/searching-sorting/merge-sort.tsx(203,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/merge-sort.tsx(297,13): error TS1005: ')' expected.
+content/dsa/searching-sorting/merge-sort.tsx(298,11): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/searching-sorting/merge-sort.tsx(401,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/searching-sorting/merge-sort.tsx(402,1): error TS1005: '</' expected.
+content/dsa/searching-sorting/quick-sort.tsx(188,6): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/quick-sort.tsx(198,8): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/quick-sort.tsx(203,10): error TS17008: JSX element 'div' has no corresponding closing tag.
+content/dsa/searching-sorting/quick-sort.tsx(293,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+content/dsa/searching-sorting/quick-sort.tsx(294,1): error TS1005: '</' expected.
+content/dsa/trees/bst-simulator.tsx(533,136): error TS1002: Unterminated string literal.

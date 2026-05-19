@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dev//lab — Do Not Click</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --red: #dc3232;
+      --red-dim: rgba(220, 50, 50, 0.15);
+      --red-border: rgba(220, 50, 50, 0.35);
+      --red-glow: rgba(220, 50, 50, 0.08);
+      --green: rgba(80, 200, 120, 0.9);
+      --bg: #080808;
+      --surface: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.07);
+      --border-mid: rgba(255, 255, 255, 0.12);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.85);
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --text-hint: rgba(255, 255, 255, 0.4);
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --font-display: 'Syne', system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ─── Noise overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.15;
+    }
+
+    /* ─── Scanlines ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ─── Keyframes ─── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse-red {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(220, 50, 50, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(220, 50, 50, 0);
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      33% {
+        transform: translate(-6px, 4px);
+      }
+
+      66% {
+        transform: translate(4px, -4px);
+      }
+    }
+
+    @keyframes glitch {
+
+      0%,
+      100% {
+        clip-path: inset(0 0 100% 0);
+        transform: translate(0);
+      }
+
+      10% {
+        clip-path: inset(10% 0 85% 0);
+        transform: translate(-2px, 1px);
+      }
+
+      20% {
+        clip-path: inset(40% 0 55% 0);
+        transform: translate(2px, -1px);
+      }
+
+      30% {
+        clip-path: inset(70% 0 25% 0);
+        transform: translate(-1px, 2px);
+      }
+
+      40% {
+        clip-path: inset(90% 0 5% 0);
+        transform: translate(1px, 0);
+      }
+
+      50% {
+        clip-path: inset(0 0 100% 0);
+      }
+    }
+
+    @keyframes bar-fill {
+      from {
+        width: 0;
+      }
+    }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid var(--border);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .logo span {
+      color: var(--red);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-counter {
+      font-size: 11px;
+      color: var(--text-hint);
+      letter-spacing: 0.06em;
+    }
+
+    .forbidden-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: rgba(220, 50, 50, 0.07);
+      border: 0.5px solid var(--red-border);
+      border-radius: 5px;
+      color: rgba(220, 100, 100, 0.9);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      animation: pulse-red 3.5s infinite;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .forbidden-btn:hover {
+      background: rgba(220, 50, 50, 0.14);
+      border-color: rgba(220, 80, 80, 0.55);
+      color: #ff8080;
+    }
+
+    .warning-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: blink 1.8s infinite;
+      flex-shrink: 0;
+    }
+
+    /* ─── Screens ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 100px 24px 60px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+      animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* Ambient glow per screen */
+    .screen::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.04;
+      filter: blur(80px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #s0::before {
+      background: #4040ff;
+    }
+
+    #s1::before {
+      background: var(--red);
+    }
+
+    #s2::before {
+      background: rgba(80, 200, 120, 1);
+    }
+
+    #s3::before {
+      background: #ff8800;
+    }
+
+    #s4::before {
+      background: rgba(80, 200, 120, 1);
+    }
+
+    #s5::before {
+      background: #00ff88;
+    }
+
+    /* ─── Typography ─── */
+    .eyebrow {
+      font-size: 10px;
+      color: rgba(220, 80, 80, 0.9);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      font-family: var(--font-mono);
+    }
+
+    .eyebrow.ok {
+      color: rgba(80, 200, 120, 0.9);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: rgba(220, 100, 100, 0.9);
+    }
+
+    h1 .ok {
+      color: rgba(80, 200, 120, 0.9);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+      line-height: 1.8;
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      padding: 11px 22px;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 0.5px solid transparent;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--border-mid);
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .btn-primary {
+      background: rgba(220, 50, 50, 0.12);
+      border-color: rgba(220, 50, 50, 0.38);
+      color: rgba(255, 110, 110, 0.95);
+    }
+
+    .btn-primary:hover {
+      background: rgba(220, 50, 50, 0.22);
+      border-color: rgba(220, 80, 80, 0.6);
+      color: #ff8888;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-success {
+      background: rgba(80, 200, 120, 0.1);
+      border-color: rgba(80, 200, 120, 0.3);
+      color: rgba(80, 200, 120, 0.9);
+    }
+
+    .btn-success:hover {
+      background: rgba(80, 200, 120, 0.18);
+      border-color: rgba(80, 200, 120, 0.5);
+    }
+
+    .btn-dim {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.06);
+      color: var(--text-hint);
+      font-size: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-dim:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ─── Divider ─── */
+    .divider {
+      width: 48px;
+      height: 0.5px;
+      background: var(--border);
+      margin: 2rem auto;
+    }
+
+    /* ─── Screen 0: Landing ─── */
+    .landing-inner {
+      max-width: 600px;
+    }
+
+    .version-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 2rem;
+    }
+
+    .version-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: blink 3s infinite;
+    }
+
+    .stat-line {
+      font-size: 10px;
+      color: rgba(220, 100, 100, 0.8);
+      letter-spacing: 0.1em;
+      margin-top: 1.5rem;
+    }
+
+    /* ─── Terminal box ─── */
+    .terminal {
+      background: rgba(0, 0, 0, 0.5);
+      border: 0.5px solid rgba(80, 200, 120, 0.15);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin: 1.5rem auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal::before {
+      content: '● ● ●';
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.1);
+      letter-spacing: 4px;
+    }
+
+    .terminal-content {
+      padding-top: 6px;
+    }
+
+    .t-line {
+      font-size: 12px;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
+      padding: 3px 0;
+    }
+
+    .t-line:last-child {
+      border-bottom: none;
+    }
+
+    .t-key {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 11px;
+    }
+
+    .t-val {
+      color: rgba(220, 100, 100, 0.9);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .t-val.green {
+      color: rgba(80, 200, 120, 0.8);
+    }
+
+    .progress-bar-wrap {
+      margin-top: 4px;
+    }
+
+    .progress-bar-track {
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: rgba(220, 80, 80, 0.6);
+      border-radius: 1px;
+      animation: bar-fill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    /* ─── Typewriter ─── */
+    #typewriter-output {
+      font-size: 13px;
+      color: rgba(80, 200, 120, 0.85);
+      letter-spacing: 0.05em;
+      margin: 1.2rem 0;
+      min-height: 24px;
+      font-family: var(--font-mono);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: rgba(80, 200, 120, 0.7);
+      animation: blink 0.75s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      border-radius: 1px;
+    }
+
+    /* ─── Guilt screen ─── */
+    .guilt-card {
+      max-width: 460px;
+      width: 100%;
+      text-align: left;
+      padding: 1.4rem 1.8rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 0.5px solid rgba(255, 140, 0, 0.12);
+      border-left: 2px solid rgba(255, 140, 0, 0.3);
+      border-radius: 6px;
+      margin: 1.5rem auto;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.75;
+      font-style: italic;
+      font-family: var(--font-display);
+      font-weight: 300;
+    }
+
+    /* ─── Checkbox ─── */
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      max-width: 440px;
+      width: 100%;
+      margin: 1.5rem auto;
+      user-select: none;
+      letter-spacing: 0.04em;
+    }
+
+    .checkbox-wrap:hover {
+      border-color: var(--border-mid);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--red);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ─── Escape button ─── */
+    .escape-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .cowardice-msg {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -28px;
+      font-size: 10px;
+      color: rgba(220, 100, 100, 0.95);
+      white-space: nowrap;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+      font-family: var(--font-mono);
+    }
+
+    /* ─── Final screen ─── */
+    .final-inner {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 1.5rem 0;
+    }
+
+    .donate-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      text-align: left;
+      transition: all 0.22s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .donate-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(255, 255, 255, 0.015));
+      pointer-events: none;
+    }
+
+    .donate-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .donate-card.chaos {
+      border-color: rgba(220, 50, 50, 0.18);
+    }
+
+    .donate-card.chaos:hover {
+      border-color: rgba(220, 50, 50, 0.35);
+    }
+
+    .card-emoji {
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.55;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── Payment buttons ─── */
+    .pay-section {
+      margin: 1.5rem 0;
+    }
+
+    .pay-label {
+      font-size: 10px;
+      color: var(--text-hint);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .pay-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .pay-btn {
+      padding: 9px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 0.5px solid var(--border);
+      border-radius: 5px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .pay-btn:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.75);
+      border-color: var(--border-mid);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Checkout ─── */
+    .checkout-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: left;
+      margin: 0 auto;
+    }
+
+    .checkout-header {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1.5rem;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      color: var(--text-muted);
+    }
+
+    .checkout-body {
+      padding: 1.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 10px;
+      color: var(--text-hint);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 0.5px solid var(--border);
+      padding: 12px;
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      outline: none;
+    }
+
+    /* ─── Timer msg ─── */
+    #timer-msg {
+      display: none;
+      font-size: 11px;
+      color: rgba(220, 100, 100, 0.9);
+      letter-spacing: 0.06em;
+      margin-top: 1.5rem;
+      padding: 10px 16px;
+      border: 0.5px solid rgba(220, 50, 50, 0.12);
+      border-radius: 5px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* ─── Roast line ─── */
+    .roast {
+      font-size: 11px;
+      color: var(--text-hint);
+      letter-spacing: 0.06em;
+      margin-top: 2rem;
+      font-style: italic;
+      font-family: var(--font-display);
+    }
+
+    /* ─── Floating particles ─── */
+    .particle {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: drift 8s infinite ease-in-out;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+
+      .nav-counter {
+        display: none;
+      }
+
+      .screen {
+        padding: 80px 16px 40px;
+      }
+
+      .terminal {
+        padding: 1.2rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Particles -->
+  <div class="particle" style="top:20%;left:10%;animation-delay:-2s;animation-duration:12s;width:2px;height:2px;"></div>
+  <div class="particle" style="top:60%;left:85%;animation-delay:-5s;animation-duration:9s;"></div>
+  <div class="particle" style="top:80%;left:30%;animation-delay:-1s;animation-duration:15s;width:1.5px;height:1.5px;">
+  </div>
+  <div class="particle" style="top:35%;left:70%;animation-delay:-7s;animation-duration:11s;"></div>
+  <div class="particle" style="top:10%;left:55%;animation-delay:-3s;animation-duration:13s;width:1px;height:1px;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <a href="/" style="text-decoration: none;"><span class="logo">CtrlAltLearn<span>//</span>lab</span></a>
+      <span style="font-size: 9px; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;">Made with ❤️</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-counter" id="nav-counter">12,483 people ignored this</span>
+      <button class="forbidden-btn" onclick="startJourney()">
+        <span class="warning-dot"></span>
+        Do Not Click
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+     SCREEN 0 — Landing
+══════════════════════════════════ -->
+  <div class="screen active" id="s0">
+    <div class="landing-inner">
+      <div class="version-tag">
+        <span class="version-dot"></span>
+        v2.4.1 — experimental build
+      </div>
+      <h1>Building things that<br><em>probably shouldn't exist.</em></h1>
+      <p class="subtitle">
+        AI experiments. Late-night APIs.<br>
+        Questionable decisions shipped to production.<br>
+        And a button you were specifically asked not to click.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="/">Projects</a>
+        <button class="btn btn-ghost"
+          onclick="showToast('Writing in progress. Check back after sleep deprivation.')">Blog</button>
+        <button class="btn btn-primary" onclick="startJourney()">⚠ Do Not Press This</button>
+      </div>
+      <p class="stat-line" id="s0-stat">↑ 12,483 people clicked it anyway. You will too.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+     SCREEN 1 — First Warning
+══════════════════════════════════ -->
+  <div class="screen" id="s1">
+    <div style="max-width:520px;">
+      <p class="eyebrow">// warning — level 01 / 04</p>
+      <h1>I specifically asked you<br>not to click that.</h1>
+      <p class="subtitle" style="margin-bottom:1rem;">
+        Yet here we are.<br>
+        Together. In this situation you created.
+      </p>
+      <div class="divider"></div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:1.8rem;letter-spacing:0.06em;">
+        You now have exactly two options.
+      </p>
+      <div class="btn-row">
+        <div class="escape-wrap">
+          <span class="cowardice-msg" id="cowardice-msg">Cowardice detected.</span>
+          <button class="btn btn-dim" id="retreat-btn" onclick="handleRetreat()">← Retreat With Dignity</button>
+        </div>
+        <button class="btn btn-primary" onclick="goTo(2)">Continue If You Dare →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+     SCREEN 2 — Diagnostics
+══════════════════════════════════ -->
+  <div class="screen" id="s2">
+    <div style="max-width:520px;">
+      <p class="eyebrow">// warning — level 02 / 04</p>
+      <h1>Running<br><em>diagnostics.</em></h1>
+      <div id="typewriter-output"><span class="cursor"></span></div>
+
+      <div class="terminal" id="results-terminal" style="display:none;">
+        <div class="terminal-content">
+          <div class="t-line">
+            <span class="t-key">self_control</span>
+            <span class="t-val">critically low</span>
+          </div>
+          <div class="t-line">
+            <div class="progress-bar-wrap" style="width:100%;">
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:8%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="t-line">
+            <span class="t-key">decision_making</span>
+            <span class="t-val">questionable</span>
+          </div>
+          <div class="t-line">
+            <div class="progress-bar-wrap" style="width:100%;">
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:23%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="t-line">
+            <span class="t-key">vibes</span>
+            <span class="t-val">chaotic neutral</span>
+          </div>
+          <div class="t-line">
+            <span class="t-key">risk_tolerance</span>
+            <span class="t-val">dangerously high</span>
+          </div>
+          <div class="t-line">
+            <span class="t-key">threat_level</span>
+            <span class="t-val green">harmless (probably)</span>
+          </div>
+          <div class="t-line" style="border:none;padding-top:8px;">
+            <span class="t-key">verdict</span>
+            <span class="t-val" style="color:rgba(255,200,80,0.8);">proceed with caution</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="continue2-btn" style="display:none;margin-top:0.5rem;" onclick="goTo(3)">
+        Continue Anyway →
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+     SCREEN 3 — Guilt
+══════════════════════════════════ -->
+  <div class="screen" id="s3">
+    <div style="max-width:520px;">
+      <p class="eyebrow">// warning — level 03 / 04</p>
+      <h1>A brief moment of<br><em>transparency.</em></h1>
+
+      <div class="guilt-card" id="guilt-quote"></div>
+
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.8;letter-spacing:0.04em;">
+        You could still leave.<br>But now it's personal.
+      </p>
+
+      <label class="checkbox-wrap" for="accept-cb">
+        <input type="checkbox" id="accept-cb" onchange="toggleAccept()">
+        <span>I accept full responsibility for what happens next</span>
+      </label>
+
+      <button class="btn btn-primary" id="accept-btn" disabled onclick="goTo(4)">
+        I Accept My Fate →
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+     SCREEN 4 — Final Reveal
+══════════════════════════════════ -->
+  <div class="screen" id="s4">
+    <div class="final-inner">
+      <p class="eyebrow ok">// security clearance granted — all warnings ignored</p>
+
+      <h1 style="margin-bottom:0.3rem;">Fine.</h1>
+      <p
+        style="font-family:var(--font-display);font-size:1.15rem;color:var(--text-secondary);margin-bottom:0.6rem;font-weight:300;">
+        Since you survived all four warnings...
+      </p>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:2rem;letter-spacing:0.05em;">
+        Buy me some RAM, APIs, or one more sleepless debugging session.
+      </p>
+
+      <div class="card-grid">
+        <div class="donate-card">
+          <span class="card-emoji">☕</span>
+          <div class="card-title">Coffee Mode</div>
+          <div class="card-desc">Keeps the developer alive for another coding session. Renewable every 4 hours.</div>
+        </div>
+        <div class="donate-card">
+          <span class="card-emoji">⚡</span>
+          <div class="card-title">API Fuel</div>
+          <div class="card-desc">Funds AI tokens before the models start asking for equity.</div>
+        </div>
+        <div class="donate-card">
+          <span class="card-emoji">🧠</span>
+          <div class="card-title">GPU Support</div>
+          <div class="card-desc">Helps train questionable experiments at 2 AM on a thermally throttled machine.</div>
+        </div>
+        <div class="donate-card chaos">
+          <span class="card-emoji">🚀</span>
+          <div class="card-title">Chaos Upgrade</div>
+          <div class="card-desc">For people who ignored every warning sign. You know who you are.</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="pay-section">
+        <p class="pay-label">Choose your weapon</p>
+        <div class="pay-grid">
+          <!-- Replace href="#" with your actual payment links -->
+          <a class="pay-btn" href="#" onclick="handlePayment('UPI')">📱 UPI / QR</a>
+          <a class="pay-btn" href="#" onclick="handlePayment('Razorpay')">💳 Razorpay</a>
+          <a class="pay-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+          <a class="pay-btn" href="https://github.com/sponsors/" target="_blank" rel="noopener">🐙 GitHub Sponsors</a>
+          <a class="pay-btn" href="https://paypal.me/" target="_blank" rel="noopener">💵 PayPal</a>
+          <a class="pay-btn" href="#" onclick="handlePayment('Stripe')">🌐 Stripe</a>
+        </div>
+      </div>
+
+      <div id="timer-msg">
+        ⚠ You've been here for 3 minutes. That's enough commitment to support the project.
+      </div>
+
+      <p class="roast" id="final-roast"></p>
+
+      <div class="divider"></div>
+      <button class="btn btn-ghost" onclick="window.location.href='/'"
+        style="font-size:10px;margin-top:0.5rem;letter-spacing:0.12em;">
+        ← Back to Safety
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+     SCREEN 5 — Checkout
+══════════════════════════════════ -->
+  <div class="screen" id="s5">
+    <div style="max-width:480px; width: 100%;">
+      <p class="eyebrow" style="color:var(--text-hint);">// secure connection established</p>
+      <h1>Payment <span style="color:var(--green);">Gateway</span></h1>
+      <p class="subtitle" style="margin-bottom:2rem; margin-left:auto; margin-right:auto;">
+        Initializing <span id="gateway-method" style="color:var(--text-primary); font-weight:bold;"></span> protocol.
+      </p>
+
+      <div class="checkout-card">
+        <div class="checkout-header">
+          <span>Total Amount</span>
+          <span style="font-size:1.2rem; color:var(--text-primary);">$9,999.00</span>
+        </div>
+        <div class="checkout-body">
+          <div class="input-group">
+            <label>Card Number</label>
+            <input type="text" placeholder="**** **** **** 1337" disabled>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div class="input-group" style="flex:1;">
+              <label>Expiry</label>
+              <input type="text" placeholder="12/99" disabled>
+            </div>
+            <div class="input-group" style="flex:1;">
+              <label>CVC</label>
+              <input type="password" placeholder="***" disabled>
+            </div>
+          </div>
+          <button class="btn btn-success" style="width:100%; margin-top:1rem;" onclick="processPayment()">
+            Confirm Payment
+          </button>
+        </div>
+      </div>
+
+      <button class="btn btn-ghost" onclick="goTo(4)" style="font-size:10px;margin-top:1.5rem;letter-spacing:0.12em;">
+        ← Cancel Transaction
+      </button>
+    </div>
+  </div>
+
+  <!-- ─── Toast ─── -->
+  <div id="toast" style="
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(60px);
+  background:rgba(20,20,20,0.95);
+  border:0.5px solid rgba(255,255,255,0.1);
+  border-radius:6px;
+  padding:10px 20px;
+  font-size:11px;
+  color:rgba(255,255,255,0.95);
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.06em;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+  opacity:0;
+  z-index:2000;
+  backdrop-filter:blur(12px);
+  pointer-events:none;
+"></div>
+
+  <script>
+    /* ── Data ─────────────────────────────────── */
+    const guiltQuotes = [
+      "Servers are running on caffeine and optimism. Neither is renewable.",
+      "An API cried quietly when you opened this page.",
+      "GPU temperature increased by 0.3°C because of your curiosity.",
+      "Every click costs approximately 0.0001 developer sanity units.",
+      "Somewhere, a cloud server billed another fraction of a cent. For you.",
+      "The LLM powering this didn't ask to exist. Neither did this button.",
+      "This tab is now responsible for 0.0003% of global electricity consumption.",
+      "A rubber duck debugging session was interrupted to render this screen."
+    ];
+
+    const roasts = [
+      "Your curiosity funds innovation. And poor financial decisions.",
+      "Statistics suggest you were warned. Statistics also suggest you didn't care.",
+      "Four warnings. Zero hesitation. Respect, honestly.",
+      "You clicked a button labeled 'Do Not Click.' You are the target demographic.",
+      "The developer is not responsible for any epiphanies triggered by this page.",
+      "Scientists are baffled. The button said no. You said yes anyway.",
+      "Chaos is just creativity that skipped the planning phase. Welcome."
+    ];
+
+    /* ── State ───────────────────────────────── */
+    let retreatCount = 0;
+    let journeyStarted = false;
+    let timerRef = null;
+    let counterBase = 12483;
+
+    /* ── Counter shimmer ─────────────────────── */
+    function updateCounter() {
+      counterBase += Math.floor(Math.random() * 2);
+      const el = document.getElementById('nav-counter');
+      if (el) el.textContent = counterBase.toLocaleString() + ' people ignored this';
+    }
+    setInterval(updateCounter, 7000);
+
+    /* ── Navigation ─────────────────────────── */
+    function goTo(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('s' + n);
+      if (!target) return;
+      target.classList.remove('active');
+      void target.offsetWidth; // reflow to re-trigger animation
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (n === 2) startDiagnostics();
+      if (n === 3) loadGuilt();
+      if (n === 4) loadFinal();
+    }
+
+    function startJourney() {
+      goTo(1);
+      if (!journeyStarted) {
+        journeyStarted = true;
+        counterBase++;
+        updateCounter();
+        timerRef = setTimeout(() => {
+          const el = document.getElementById('timer-msg');
+          if (el) el.style.display = 'block';
+        }, 180000);
+      }
+    }
+
+    /* ── Retreat ─────────────────────────────── */
+    function handleRetreat() {
+      retreatCount++;
+      const btn = document.getElementById('retreat-btn');
+      const msg = document.getElementById('cowardice-msg');
+
+      if (retreatCount === 1) {
+        msg.style.display = 'block';
+        btn.style.transform = 'translateX(28px) rotate(3deg)';
+        setTimeout(() => {
+          btn.style.transform = '';
+          msg.style.display = 'none';
+        }, 1600);
+      } else if (retreatCount === 2) {
+        btn.style.transform = 'translateX(-20px) translateY(8px)';
+        showToast('Running away is a skill. Respect.');
+        setTimeout(() => { btn.style.transform = ''; }, 1000);
+      } else {
+        window.location.href = '/';
+      }
+    }
+
+    /* ── Typewriter diagnostics ──────────────── */
+    function startDiagnostics() {
+      const el = document.getElementById('typewriter-output');
+      const terminal = document.getElementById('results-terminal');
+      const continueBtn = document.getElementById('continue2-btn');
+
+      el.innerHTML = '<span class="cursor"></span>';
+      terminal.style.display = 'none';
+      continueBtn.style.display = 'none';
+
+      const text = '> Analyzing curiosity levels...';
+      let i = 0;
+
+      const iv = setInterval(() => {
+        if (i < text.length) {
+          el.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
+          i++;
+        } else {
+          clearInterval(iv);
+          setTimeout(() => {
+            el.innerHTML = text + ' <span style="color:rgba(80,200,120,0.7);font-size:11px;">done</span>';
+            terminal.style.display = 'block';
+            terminal.style.animation = 'fadeUp 0.4s ease both';
+            setTimeout(() => {
+              continueBtn.style.display = 'inline-block';
+              continueBtn.style.animation = 'fadeUp 0.4s ease both';
+            }, 500);
+          }, 400);
+        }
+      }, 48);
+    }
+
+    /* ── Guilt ───────────────────────────────── */
+    function loadGuilt() {
+      const q = guiltQuotes[Math.floor(Math.random() * guiltQuotes.length)];
+      document.getElementById('guilt-quote').textContent = '"' + q + '"';
+
+      const cb = document.getElementById('accept-cb');
+      const btn = document.getElementById('accept-btn');
+      cb.checked = false;
+      btn.disabled = true;
+      btn.style.opacity = '0.25';
+      btn.style.cursor = 'not-allowed';
+    }
+
+    function toggleAccept() {
+      const cb = document.getElementById('accept-cb');
+      const btn = document.getElementById('accept-btn');
+      btn.disabled = !cb.checked;
+      btn.style.opacity = cb.checked ? '1' : '0.25';
+      btn.style.cursor = cb.checked ? 'pointer' : 'not-allowed';
+    }
+
+    /* ── Final reveal ────────────────────────── */
+    function loadFinal() {
+      const r = roasts[Math.floor(Math.random() * roasts.length)];
+      document.getElementById('final-roast').textContent = r;
+      document.getElementById('timer-msg').style.display = 'none';
+    }
+
+    function handlePayment(method) {
+      document.getElementById('gateway-method').textContent = method;
+      goTo(5);
+      return false;
+    }
+
+    function processPayment() {
+      showToast('Transaction declined: Insufficient funds. (Nice try)');
+    }
+
+    /* ── Toast ───────────────────────────────── */
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.style.transform = 'translateX(-50%) translateY(0)';
+      el.style.opacity = '1';
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => {
+        el.style.transform = 'translateX(-50%) translateY(60px)';
+        el.style.opacity = '0';
+      }, 2800);
+    }
+  </script>
+</body>
+
+</html>

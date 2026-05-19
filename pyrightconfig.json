@@ -1,0 +1,12 @@
+{
+  "venvPath": "c:/Users/VATSAL VARSHNEY/OneDrive/Desktop/O(1)",
+  "venv": "venv",
+  "include": ["backend", "app"],
+  "pythonVersion": "3.12",
+  "analysis": {
+    "extraPaths": [
+      "c:/Users/VATSAL VARSHNEY/OneDrive/Desktop/O(1)/backend",
+      "c:/Users/VATSAL VARSHNEY/OneDrive/Desktop/O(1)/venv/Lib/site-packages"
+    ]
+  }
+}

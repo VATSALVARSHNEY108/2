@@ -1,0 +1,22 @@
+@theme {
+  --color-bg-page: var(--bg-primary);
+  --color-bg-card: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent-primary: var(--accent-vibrant);
+  --color-accent-soft: var(--accent-soft);
+  --color-border-light: var(--border-color);
+
+  --shadow-premium: var(--shadow-main);
+}
+
+[data-theme="klight"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --accent-vibrant: #0066ff;
+  --accent-soft: #cce5ff;
+  --border-color: #e0e0e0;
+  --shadow-main: 0 2px 8px rgba(0,0,0,0.1);
+}

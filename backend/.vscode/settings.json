@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "c:\\Users\\VATSAL VARSHNEY\\OneDrive\\Desktop\\O(1)\\venv\\Scripts\\python.exe",
+  "python.analysis.extraPaths": [
+    "c:\\Users\\VATSAL VARSHNEY\\OneDrive\\Desktop\\O(1)\\backend",
+    "c:\\Users\\VATSAL VARSHNEY\\OneDrive\\Desktop\\O(1)\\venv\\Lib\\site-packages"
+  ]
+}

@@ -1,0 +1,317 @@
+[
+  {
+    "source": "content\\dsa\\arrays\\longest-subarray-k.tsx",
+    "content": "Title: Longest Subarray with Sum K\nIf the cumulative sum up to index <code>i</code> is <code>S</code>, and we've seen a cumulative sum of <code>S - K</code> at an earlier index <code>j</code>, then the subarray from <code>j+1</code> to <code>i</code> has a sum of <code>K</code>.\nWe store the first occurrence of every prefix sum in a hash map. We only store the *first* occurrence to ensure we find the *longest* possible subarray.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\maximum-subarray-sum.tsx",
+    "content": "Title: Maximum Subarray Sum\nAt each index, we decide: should we add this element to the existing contiguous subarray, or is it better to start a completely new subarray from here?\nIf <code>arr[i] &gt; currentSum + arr[i]</code>, we discard the previous running sum because it's dragging us down (it's negative). Otherwise, we accumulate.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\merge-intervals.tsx",
+    "content": "Title: Merge Intervals\nIf we sort the intervals by their start times, overlapping intervals will be adjacent. This allows us to merge them in a single pass.\nCompare the current interval with the last merged one. If <code>current.start {\"<=\"} last.end</code>, update <code>last.end = max(last.end, current.end)</code>.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\move-zeros.tsx",
+    "content": "Title: Move Zeroes\nThe <code>fast</code> pointer scans the array for non-zero elements. The <code>slow</code> pointer keeps track of where the next non-zero element should be placed.\nWhenever <code>fast</code> finds a non-zero element, we swap it with the element at <code>slow</code>, and then increment <code>slow</code>. This naturally pushes all zeroes to the back.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\remove-duplicates.tsx",
+    "content": "Title: Remove Duplicates from Sorted Array\nFor a sorted array, we can keep one pointer (<code>slow</code>) for the boundary of unique elements and another (<code>fast</code>) to scan the array.\nIf <code>arr[fast] != arr[slow]</code>, we've found a new unique element. We increment <code>slow</code> and update <code>arr[slow] = arr[fast]</code>. This avoids O(N) extra space.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\subarray-sum-equals-k.tsx",
+    "content": "Title: Subarray Sum Equals K\nWe maintain a hash map of <code>(prefix_sum) \u2794 (frequency)</code>. If the sum up to index <code>i</code> is <code>S</code>, we look for <code>S - K</code> in the map. The frequency of <code>S - K</code> tells us how many valid subarrays end at <code>i</code>.\nWe initialize the map with <code>{`{ 0: 1 }`}</code>. This handles the case where a subarray starting from index 0 exactly matches the target sum <code>K</code>.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\arrays\\two-sum.tsx",
+    "content": "Title: Two Sum\nFor any number <code>x</code>, its complement is <code>Target - x</code>. If we can find the complement in the numbers we've already seen, we've solved the problem.\nInstead of a nested loop O(N\u00b2), we iterate once. At each step, we check the map for the complement. If not found, we store the current number in the map.",
+    "topic": "arrays"
+  },
+  {
+    "source": "content\\dsa\\graphs\\adjacency-list.tsx",
+    "content": "Title: Adjacency List\nInstead of a grid, we store only the edges that exist. Each vertex acts as a key to its own list of connected neighbors.\nFor a graph with many nodes but few edges (sparse), this saves massive amounts of memory compared to a matrix.\nTo check if Node A connects to Node B, we must scan through Node A's list. This is slower than the O(1) lookup of a matrix.\nCommonly implemented using arrays of lists, vectors, or hash maps depending on the programming language.\nObserve how the list updates as you modify the graph. This is the exact representation stored in memory.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\adjacency-matrix.tsx",
+    "content": "Title: Adjacency Matrix\nA 2D array representation where nodes are indices. A '1' at (i, j) means an edge exists; a '0' means no connection.\nFor undirected graphs, the matrix is symmetric across the main diagonal (M[i,j] == M[j,i]).\nChecking if Node A connects to Node B takes constant time O(1), making it ideal for dense graphs.\nIt always takes V\u00b2 space, even if the graph has very few edges. This makes it inefficient for sparse graphs.\nHover over the matrix cells or the graph nodes to see linked highlighting across the representations.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\alien-dictionary.tsx",
+    "content": "Title: Alien Dictionary\nComparing adjacent words reveals precedence. If \"abc\" comes before \"abd\", then 'c' comes before 'd'.\nEach precedence relation <code>a \u2192 b</code> is a directed edge in our character graph.\nWe apply Kahn's Algorithm on the character graph. A valid sort order gives the alphabet. A cycle implies no valid order.\nWhere N is total characters in words and K is alphabet size. We process every char once.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\articulation-points.tsx",
+    "content": "Title: Articulation Points\nAn articulation point is a node that, if removed, increases the number of connected components in a graph.\nWe use DFS discovery times and low-link values. If a child cannot reach any ancestor of its parent, the parent is critical.\nFor a non-root node <code>u</code>, it is an AP if it has a child <code>v</code> such that <code>low[v] \u2265 disc[u]</code>.\nThe root of the DFS tree is an articulation point if and only if it has more than one child in the DFS spanning tree.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\bellman-ford-algorithm.tsx",
+    "content": "Title: Bellman\u2013Ford Algorithm\nDijkstra's greedy approach fails on negative edges. Bellman-Ford scans all edges repeatedly to find shortcuts that negative weights might offer.\nFor each edge (u, v), if the distance to u plus the weight to v is less than the current distance to v, we update it. We do this V-1 times.\nIf any distance can still be reduced after V-1 passes, the graph contains a negative loop that reduces distances infinitely.\nAt O(VE), it is slower than Dijkstra's O(E log V). It is only preferred when negative edge weights are possible.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\bfs.tsx",
+    "content": "Title: Breadth\u2011First Search (BFS)\nExplore BFS step\u2011by\u2011step on a custom graph.\nOverview: BFS explores a graph level\u2011by\u2011level, finding the shortest number of edges from a source to every reachable vertex.\nQueue Mechanics: The queue stores frontier nodes. Dequeue\u202f\u2192\u202fprocess\u202f\u2192\u202fenqueue unvisited neighbors ensures a breadth\u2011first expansion.\nVisited Set: A visited set prevents re\u2011exploration, guaranteeing O(V\u202f+\u202fE) runtime.\nApplications: Shortest path in unweighted graphs, level order traversal, connectivity checks, and more.\nBFS explores a graph level\u2011by\u2011level, finding the shortest number of edges from a source to every reachable vertex.\nThe queue stores frontier nodes. Dequeue\u202f\u2192\u202fprocess\u202f\u2192\u202fenqueue unvisited neighbors ensures a breadth\u2011first expansion.\nA visited set prevents re\u2011exploration, guaranteeing O(V\u202f+\u202fE) runtime.\nShortest path in unweighted graphs, level order traversal, connectivity checks, and more.\n{describeStep(step as BFStep)}",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\bipartite-graph.tsx",
+    "content": "Title: Bipartite Graph Check\nIf you can color a graph using only 2 colors such that no two adjacent nodes have the same color, it is bipartite.\nA graph is bipartite if and only if it contains no odd cycles (cycles of length 3, 5, 7, etc.).\nWe use BFS to assign alternating colors to nodes. If we ever find an edge between nodes of the same color, the check fails.\nBipartite graphs are used in matching problems, job assignments, and representing relationships between two different types of entities.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\bridges.tsx",
+    "content": "Title: Bridges in a Graph\nRemoving a bridge splits the graph into two separate components. It's a single point of failure for communication between nodes.\nIf there's no back-edge from a node or its descendants to any ancestor of the parent, then the edge to the parent is a bridge.\nAn edge <code>(u, v)</code> is a bridge if and only if <code>low[v] &gt; disc[u]</code>, meaning <code>v</code> has no alternative path to <code>u</code>.\nLike articulation points, bridges can be found in a single DFS pass, making the analysis highly efficient for large networks.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\clone-graph.tsx",
+    "content": "Title: Clone Graph\nA shallow copy only copies references. A deep copy (cloning) creates entirely new objects so changes to one don't affect the other.\nThe core is a <code>Map&#60;OriginalNode, ClonedNode&#62;</code>. This prevents infinite cycles and ensures nodes are only cloned once.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\complexity-graph-algorithms.tsx",
+    "content": "Title: Algorithm Complexity\nMost basic traversals are linear <code>O(V+E)</code>, while complex pathfinding involving edge weights or multiple pairs scales quadratically or cubically.\nFor sparse graphs <code>(E \u2248 V)</code>, linear algorithms shine. For dense graphs <code>(E \u2248 V\u00b2)</code>, the overhead of priority queues (log V) becomes significant.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\connected-components.tsx",
+    "content": "Title: Connected Components\nA connected component is a maximal subgraph where every pair of nodes has a path between them.\nPick an unvisited node, run BFS to find all reachable nodes, mark them as a component, and repeat.\nThe algorithm effectively divides the graph into independent groups. No edges exist between nodes of different components.\nUsed in image segmentation, social network analysis, and understanding the vulnerability of communication grids.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\course-schedule.tsx",
+    "content": "Title: Course Schedule\nWe use a queue-based approach to iteratively process courses with zero incoming edges (no remaining prerequisites).\nIf we finish the process and some courses remain unvisited, it means there's a circular dependency (e.g., A needs B, B needs A).",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\cycle-detection-directed.tsx",
+    "content": "Title: Cycle Detection (Directed)\nWe keep track of nodes currently in the DFS path. If we visit a node already in the stack, a cycle exists.\nA back-edge is an edge from a node to one of its ancestors in the DFS tree. This is the definitive indicator of a directed cycle.\nEvery node and edge is explored once. If the DFS completes without finding any back-edges, the graph is a Directed Acyclic Graph (DAG).\nNodes can be in three states: unvisited, currently visiting (in stack), or fully visited (processed).",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\cycle-detection-undirected.tsx",
+    "content": "Title: Cycle Detection (Undirected)\nIn undirected graphs, an edge back to the immediate parent is not a cycle. We must ignore it during traversal.\nA back-edge connects a node to a previously visited ancestor (other than its parent), forming a closed loop.\nPick a node, start DFS, and pass the current node as the 'parent' to its neighbors. If a neighbor is already visited and not the parent, a cycle is found.\nIf a graph has no cycles and is connected, it is a Tree. Cycle detection is key to verifying tree structures.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\detect-cycle-grid.tsx",
+    "content": "Title: Detect Cycle in Grid\nTo detect a cycle, we must avoid immediately moving back to the cell we just came from (the parent).\nIf we reach a cell that is already 'visited' and is NOT the parent, we've successfully closed a loop.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\dfs.tsx",
+    "content": "Title: Depth\u2011First Search (DFS)\nExplore DFS step\u2011by\u2011step on a custom graph. DFS explores as far as possible along each branch before backtracking.\nOverview: DFS explores a graph by going deep into neighbors before exploring siblings. It uses a stack (explicit or call stack) to track the path.\nStack Mechanics: LIFO (Last\u2011In, First\u2011Out). Pushing unvisited neighbors onto the stack ensures we visit the most recently discovered node next.\nVisited Set: A visited set prevents cycles and redundant exploration, ensuring every node and edge is processed once.\nApplications: Topological sort, finding connected components, solving puzzles (mazes), and cycle detection.\nDFS explores a graph by going deep into neighbors before exploring siblings. It uses a stack (explicit or call stack) to track the path.\nLIFO (Last\u2011In, First\u2011Out). Pushing unvisited neighbors onto the stack ensures we visit the most recently discovered node next.\nA visited set prevents cycles and redundant exploration, ensuring every node and edge is processed once.\nTopological sort, finding connected components, solving puzzles (mazes), and cycle detection.\n{describeStep(step as DFStep)}",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\dijkstra-algorithm.tsx",
+    "content": "Title: Dijkstra's Algorithm\nMaintain tentative distances and visited nodes. Always pick the unvisited node with the smallest distance to explore next.\nA Min-Priority Queue efficiently provides the next node. Without it, finding the next node would take O(V) instead of O(log V).\nWhen checking edge (u, v), if <code>dist[u] + weight &lt; dist[v]</code>, we update <code>dist[v]</code>. This is the core of path finding.\nDijkstra fails with negative edge weights. For graphs with negative costs, use Bellman-Ford instead.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\disjoint-set-union.tsx",
+    "content": "Title: Disjoint Set Union (DSU)\nDetermines the representative (root) of the set containing an element. Includes path compression for O(1) amortized lookup.\nMerges two sets by making one root point to the other. Uses rank or size to keep the trees balanced.\nAs we find the root, we update every node on the path to point directly to the root, significantly flattening the tree structure.\nCrucial for Kruskal's MST algorithm, cycle detection in undirected graphs, and dynamic connectivity problems.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\euler-path-circuit.tsx",
+    "content": "Title: Euler Path & Circuit\nThe algorithm uses a stack to build a path until it gets stuck, then backtracks and appends nodes to the circuit as it returns.\nA circuit exists if all nodes have even degrees. A path exists if exactly two nodes have odd degrees (start and end).",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\flood-fill.tsx",
+    "content": "Title: Flood Fill Algorithm\nThe algorithm spreads through 4-directional or 8-directional neighbors that share the same initial property.\nTypically implemented via DFS, each call handles one pixel and triggers neighbors until a boundary is hit.\nCrucial for preventing infinite loops: check if the cell is out of bounds or already colored with the replacement.\nFlood fill can also be implemented using a Queue (BFS), which spreads in levels rather than deep paths.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\floyd-warshall-algorithm.tsx",
+    "content": "Title: Floyd-Warshall Algorithm\nUnlike Dijkstra, which uses a priority queue, Floyd-Warshall uses a 2D matrix to store the shortest distance between every pair (i, j).\nFor every pair (i, j), we check if going through intermediate node 'k' gives a shorter path: <code>dist[i][j] &gt; dist[i][k] + dist[k][j]</code>.\nIt can handle negative weights, but not negative cycles. It can however be used to detect negative cycles if <code>dist[i][i] &lt; 0</code>.\nIdeal for dense graphs or when you need a distance table for all possible connections in a network.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\graph-coloring.tsx",
+    "content": "Title: Graph Coloring\nIterate through nodes and assign the smallest available color that doesn't conflict with already-colored neighbors.\nThe minimum number of colors required is \u03c7(G). Greedy coloring is highly sensitive to the order in which nodes are processed.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\graph-condensation.tsx",
+    "content": "Title: Graph Condensation\nEvery node belonging to the same SCC is merged. Internal edges are discarded, and cross-component edges become super-edges.\nCondensation provides a roadmap of the graph's dependency structure, making it easier to perform topological analysis on complex systems.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\graph-definition.tsx",
+    "content": "Title: What is a Graph?\nVertices represent individual entities, such as cities on a map, users in a social network, or tasks in a project schedule.\nEdges define the relationship or connection between two vertices. They can be directed (one-way) or undirected (mutual).",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\graph-degrees.tsx",
+    "content": "Title: Graph Degrees\nThe number of edges directed towards a vertex. It represents the number of \"prerequisites\" or incoming dependencies.\nThe number of edges originating from a vertex. It represents the \"influence\" or reach of that node.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\grid-based-graphs.tsx",
+    "content": "Title: Grid-based Graphs\nWe don't need an adjacency list. We can calculate neighbors on-the-fly using direction arrays like <code>dx = [0,0,1,-1]</code>.\nCrucial for grid traversal: always ensure <code>0 \u2264 r &lt; R</code> and <code>0 \u2264 c &lt; C</code> before accessing <code>grid[r][c]</code>.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\hamiltonian-path-cycle.tsx",
+    "content": "Title: Hamiltonian Path & Cycle\nUnlike Eulerian paths (edges), Hamiltonian paths must cover all vertices exactly once.\nThe algorithm explores every possible permutation of vertices until it finds a valid sequence or exhausts all options.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\mst-kruskal.tsx",
+    "content": "Title: Kruskal's Algorithm\nBegin by sorting all edges of the graph in non-decreasing order of their weight.\nPick the smallest edge. Check if adding it forms a cycle with the spanning tree formed so far.\nUse Disjoint Set Union (DSU) to check if nodes are in the same component. If they aren't, add the edge!\nRepeat until there are (V-1) edges in the MST, where V is the number of vertices.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\mst-prim.tsx",
+    "content": "Title: Prim's Algorithm\nPrim's grows a single tree. It starts at an arbitrary node and expands by choosing the minimum weight edge from the tree to an unvisited node.\nA Min-Priority Queue stores potential edges that could connect the tree to new nodes, sorted by their weights.\nAt each step, we look at the \"cut\" between the current tree and all other nodes, picking the minimum edge crossing that cut.\nCrucial for network design (cabling, telecommunications) where the goal is to connect all points with minimum total distance.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\multi-source-bfs.tsx",
+    "content": "Title: Multi-Source BFS\nInstead of running BFS multiple times, we inject all sources at once. The first front to reach a node defines its shortest distance.\nConceptually, this is equivalent to adding a \"super source\" node connected to all real sources with edge weight 0.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\network-flow.tsx",
+    "content": "Title: Maximum Flow\nEvery edge has a residual capacity (limit - current flow). We can only send flow through edges where residual capacity &gt; 0.\nAn augmenting path is a simple path from S to T in the residual graph. We \"augment\" the flow by the bottleneck capacity of this path.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\number-of-islands.tsx",
+    "content": "Title: Number of Islands\nWe iterate through every cell. If we find land ('1') that hasn't been visited, we've found the start of a new island.\nUpon finding new land, we use DFS to visit all reachable landmasses, marking them as visited so they aren't counted again.\nIn this simulation, we consider 4-directional connectivity (up, down, left, right). Diagonals do not connect landmasses.\nDFS stops if we hit water ('0'), go out of bounds, or reach a cell that is already part of a discovered island.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\rotten-oranges.tsx",
+    "content": "Title: Rotten Oranges\nEvery minute, the rot spreads 1 unit distance in all 4 directions. BFS ensures we find the earliest possible time for each orange to rot.\nWe initialize a queue with all initially rotten oranges. This allows them to \"race\" outwards simultaneously, calculating the global time.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\scc-kosaraju.tsx",
+    "content": "Title: Kosaraju's Algorithm\nPerform DFS on the original graph. Push nodes onto a stack in order of their finishing times.\nReverse every directed edge in the graph. SCCs remain SCCs, but the inter-component reachability is reversed.\nPop nodes from the stack and perform DFS on the reversed graph. Each DFS call extracts one full SCC.\nIn an SCC, every vertex is reachable from every other vertex. Kosaraju's is the classic way to find these components.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\scc-tarjan.tsx",
+    "content": "Title: Tarjan's SCC\nUnlike Kosaraju's, Tarjan's identifies all SCCs in a single DFS traversal, making it slightly more efficient in practice.\nEach node tracks the smallest discovery time reachable from it. A node is an SCC root if its discovery time equals its low-link value.\nNodes are kept on a stack until their SCC is fully explored. When a root is identified, the stack is popped to extract the component.\nWidely used in compiler optimization and dependency analysis to find circular references and interconnected modules.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\shortest-path-dag.tsx",
+    "content": "Title: Shortest Path (DAG)\nProcessing nodes in topological order ensures that when we relax edges from node <code>u</code>, its own shortest path distance is already finalized.\nUnlike Dijkstra's, this algorithm doesn't need a priority queue. It simply visits each node and its outgoing edges once, making it optimal for DAGs.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\shortest-path-matrix.tsx",
+    "content": "Title: Shortest Path in Matrix\n0 represents an open path, while 1 represents an impassable wall. We only explore cells that are within boundaries and not blocked.\nBFS acts like a wave spreading outward from the start. The first time the \"wave\" hits a cell, we've found its shortest distance.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\shortest-path-unweighted.tsx",
+    "content": "Title: Shortest Path (Unweighted)\nBFS visits all nodes at distance <code>k</code> before moving to distance <code>k+1</code>, guaranteeing the shortest path property.\nBy storing the 'parent' of each node (the vertex that discovered it), we can reconstruct the actual shortest path back to the source.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\topological-sort-dfs.tsx",
+    "content": "Title: Topological Sort (DFS)\nWe perform DFS and wait for a node to \"finish\" all its neighbors before adding it to our topological sort.\nA recursion stack tracks the currently active nodes. This helps detect if the graph is truly acyclic.\nIf we revisit a node that is already on the recursion stack, we've found a cycle! Topological sort is impossible.\nBecause we add nodes as they finish, the result is in reverse topological order. We prepend them to get the final list.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\topological-sort-kahns.tsx",
+    "content": "Title: Topological Sort (Kahn's)\nThe number of incoming edges to a node. A node with 0 in-degree is a \"source\" and can be processed immediately.\nWhen a node is processed, it's \"removed\" from the graph, reducing the in-degree of all its neighbors.\nA queue stores all nodes whose in-degree has become 0, ensuring we process them in a valid topological order.\nIf we can't process all nodes because none have 0 in-degree, the remaining nodes must form a cycle.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\transitive-closure.tsx",
+    "content": "Title: Transitive Closure\nThe output is a boolean matrix where <code>M[i][j] = 1</code> indicates that a path exists from <code>i</code> to <code>j</code>, no matter how many edges it takes.\nThis algorithm \"materializes\" abstract connectivity into direct matrix entries, which is crucial for static analysis and logic inference.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\types-of-graphs.tsx",
+    "content": "Title: Types of Graphs\nAlgorithms are often specialized. For example, Dijkstra requires non-negative weights, while Topological Sort requires an Acyclic graph (DAG).\nA graph can belong to multiple categories\u2014for instance, a Weighted Directed Acyclic Graph (WDAG) is a common model for project schedules.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\vertices-and-edges.tsx",
+    "content": "Title: Vertices and Edges\nAn individual point or node in a graph. It's the \"who\" or \"what\" in our model. In a social network, a vertex is a person.\nA connection between two vertices. It's the \"how\" or \"why\" they relate. In a social network, an edge is a friendship.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\word-ladder.tsx",
+    "content": "Title: Word Ladder\nA valid edge exists between two words if they differ by exactly one character. Our dictionary acts as the constraints of the graph.\nBFS explores the \"ladder\" level by level (distance by distance), guaranteeing the first time we find the target, it's via the shortest path.",
+    "topic": "graphs"
+  },
+  {
+    "source": "content\\dsa\\graphs\\zero-one-bfs.tsx",
+    "content": "Title: 0-1 BFS Algorithm\nWeight 0 edges are <code>unshifted</code> to the front, while weight 1 edges are <code>pushed</code> to the back. This maintains the sorted order naturally.\nIf all weights are the same, BFS works. If they are 0/1, we can still avoid Dijkstra's sorting by prioritizing 0-weight \"free\" moves.",
+    "topic": "graphs"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "# CtrlAltLearn Platform Documentation",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "1. Overview & Vision\nCtrlAltLearn is a premium engineering education platform designed for deep immersion into Data Structures, Algorithms, and Core Engineering. It utilizes a **notebook\u2011style, dark-first UI** centered around the signature **Flashlight Effect** which creates a focused, high-contrast learning environment.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "2. Architectural Philosophy\n\n### Content-Driven Routing\nThe platform utilizes a **Zero-Config Content System**.\n- **Source of Truth**: The `content/` directory.\n- **Auto-Discovery**: `lib/content-registry.ts` reads the filesystem to generate metadata, ordering, and labels without manual route hardcoding.\n- **Dynamic Imports**: Lessons are loaded via `import()` in `LessonLoader.tsx` only when visited, ensuring the main bundle remains lightweight.\n\n### Tech Stack Details\n- **Frontend**: Next.js 15 (React 19, App Router)\n- **Styling**: Tailwind CSS 4.0 + Native CSS Variables\n- **Motion**: Framer Motion (Optimized for 60fps)\n- **AI**: Google Gemini Flash via Python RAG Backend\n- **State**: `next-themes` for system-aware light/dark modes.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "3. Visual Design System\n\n### The Flashlight (Spotlight) Effect\nImplemented in `components/BackgroundEffect.tsx`, this effect uses five distinct layers to create depth.\n\n| Layer | Component | Function | Detail |\n| :--- | :--- | :--- | :--- |\n| **Layer 1** | Base | Static Background | `/bg.jpg` with `blur-[16px]` at full opacity. |\n| **Layer 2** | Focus | Clear Mask | `/bg.jpg` (unblurred) revealed via `WebkitMaskImage` radial gradient at cursor. |\n| **Layer 3** | Mask | Global Vignette | `radial-gradient` centered at cursor: `transparent 0%` to `bg-primary 100%`. |\n| **Layer 4** | Grid | Technical Overlay | Dot grid (`32px`) and Line grid (`128px`) at `0.02` opacity. |\n| **Layer 5** | Noise | Film Grain | SVG Fractal Noise `mix-blend-overlay` at `0.02` opacity. |\n\n**Physics**: Mouse tracking is powered by `framer-motion`'s `useSpring` with `{ stiffness: 200, damping: 15 }` for a snappy, weightless response.\n\n### CSS Variables (Design Tokens)\nDefined in `app/styles/dark.css` and `app/styles/light.css`.\n\n#### Dark Mode (Default)\n- `--bg-primary`: `#000000` (Pitch black)\n- `--bg-secondary`: `#0a0a0a` (Elevation 1)\n- `--bg-elevated`: `#111111` (Elevation 2)\n- `--text-primary`: `#ffffff` (High contrast)\n- `--text-secondary`: `#a1a1aa` (Muted Zinc)\n- `--border-color`: `rgba(255, 255, 255, 0.1)`\n- `--accent-vibrant`: `#ffffff`\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "4. Component Encyclopedia\n\n### Navigation & Identity\n- **`Navbar`**: Glassmorphic top bar (`backdrop-blur-xl`) with dynamic breadcrumbs. Uses `Home`, `ChevronRight` icons.\n- **`ThemeToggle`**: Complex SVG-animated switch with clouds, stars, and moon/sun states.\n- **`BrandLogo`**: Minimalist SVG branding.\n\n### Visualization & Interaction\n- **`SimulationStudio`**: The primary lesson layout.\n  - **Left Panel**: Main Canvas with `p-12` padding and dot-grid background.\n  - **Floating Controls**: `onReset`, `onTogglePlay`, `onStepBackward/Forward`. Includes a speed slider (`100ms` - `2000ms`).\n  - **Right Panel**: Tabbed interface (`Explanation`, `Complexity`, `Code`, `Notes`).\n- **`AIBot`**: Floating chat interface (`z-[1005]`) connected to the FastAPI backend.\n- **`ArrayRenderer`**: Maps data to `motion.div` blocks with `layout` prop for automatic repositioning animations.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "5. Backend & AI Integration\n\n### Python RAG Engine (`/backend`)\n- **FastAPI**: Serves the `/chat` and `/ingest` endpoints.\n- **Knowledge Base**: `backend/data/knowledge_base.json` stores extracted text from all `.tsx` lessons.\n- **Ingestion Logic**: `extract_text_from_tsx` uses regex to pull `<h1>`, `className=\"description\"`, and `<h2>` content for indexing.\n- **Search**: Scikit-learn `TfidfVectorizer` + `cosine_similarity` finds the top 3 relevant sections for any query.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "6. Content Authoring Guide\n\n### Lesson Template\nLessons are authored in TSX and stored in `content/[subject]/[topic]/[lesson].tsx`. They typically use `SimulationStudio` or `MinimalSimulationStudio`.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "7. Development & DevOps\n\n### Local Setup\n1. `npm install`\n2. `python -m venv venv` && `pip install -r backend/requirements.txt`\n3. Run `start.bat` (Windows) to launch both servers.\n\n### Utility Scripts\n- `standardize_padding.py`: Regex-based layout correction.\n- `theme_ify.py`: Automated Tailwind -> CSS Variable migration.\n- `ingest.py`: Rebuilds the AI knowledge base from the latest content.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "8. Performance & Optimization\n- **Mask Performance**: Uses `WebkitMaskImage` for hardware-accelerated spotlight rendering.\n- **Lazy Loading**: `LessonLoader` defers simulation bundle loading until the user navigates to the route.\n- **Registry Caching**: `lib/content-registry.ts` utilizes targeted filesystem reads for single subjects to avoid full-tree scans.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "9. Accessibility\n- **Reduced Motion**: Spring physics can be disabled via a global flag if `prefers-reduced-motion` is detected.\n- **Aria Roles**: `aria-hidden` on all decorative background layers.\n\n---",
+    "topic": "Documentation"
+  },
+  {
+    "source": "DOCUMENTATION.md",
+    "content": "10. File-by-File Technical Reference\n\n### App Routes (`app/`)\n| File | Description |\n| :--- | :--- |\n| `layout.tsx` | Global layout. Initializes fonts, `Providers`, `Navbar`, `Footer`, `AIBot`, and the `BackgroundEffect`. |\n| `page.tsx` | Home page. Features the typewriter effect, counter statistics, and the core discipline grid. |\n| `globals.css` | Entry point for Tailwind 4.0 and all modular CSS imports. |\n| `learn/[subject]/page.tsx` | Lists topics within a subject using the `TopicExplorer` component. |\n| `learn/[subject]/[topic]/page.tsx` | Lists lessons within a topic using the `LessonList` component. |\n| `learn/[subject]/[topic]/[lesson]/page.tsx` | The lesson container. Passes lesson metadata to `LessonLoader`. |\n| `courses/page.tsx` | High-level curriculum overview listing all available subjects. |\n| `api/content/route.ts` | Server-side API endpoint providing the full subject tree to the client. |\n\n### Core Components (`components/`)\n| File | Description |\n| :--- | :--- |\n| `BackgroundEffect.tsx` | The Flashlight engine. Manages mouse state and 5-layer radial masking. |\n| `Navbar.tsx` | Interactive navigation bar with search modal trigger and glassmorphism. |\n| `AIBot.tsx` | Floating AI assistant chat interface with RAG integration. |\n| `SimulationStudio.tsx` | Main interactive layout for lessons. Manages tabs and playback controls. |\n| `LessonLoader.tsx` | Handles dynamic `import()` of lesson files and navigation breadcrumbs. |\n| `TopicExplorer.tsx` | Animated vertical learning path with magnetic nodes and scroll-linked progress. |\n| `LessonList.tsx` | Grid of lesson cards within a topic. |\n| `Magnetic.tsx` | Framer Motion wrapper providing magnetic attraction effects to child elements. |\n| `ThemeToggle.tsx` | Complex SVG-animated switch for dark/light mode transition. |\n\n### Utilities & Types (`lib/`)\n| File | Description |\n| :--- | :--- |\n| `content-registry.ts` | The bridge between the filesystem and the app. Handles sorting and formatting. |\n| `content-types.ts` | TypeScript interfaces for Subjects, Topics, and Lessons. |\n| `useProgress.ts` | Client-side hook for tracking lesson completion via `localStorage`. |\n\n### Backend (`backend/`)\n| File | Description |\n| :--- | :--- |\n| `main.py` | FastAPI application. Defines the `/chat` endpoint for AI interaction. |\n| `rag_utils.py` | Core RAG logic. Handles context retrieval using TF-IDF and similarity scoring. |\n| `ingest.py` | Standalone script to walk the filesystem and index content into JSON. |\n\n---\n\n*Last Updated: 2026-05-13 by Antigravity Engineering*",
+    "topic": "Documentation"
+  }
+]

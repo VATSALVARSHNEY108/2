@@ -1,0 +1,26 @@
+:root {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --mouse-x-pc: 50%;
+  --mouse-y-pc: 50%;
+}
+
+@layer base {
+  html,
+  body {
+    @apply antialiased m-0 p-0;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: #6366f1;
+    color: white;
+  }
+}
